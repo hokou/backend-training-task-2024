@@ -3,6 +3,8 @@
 
 const members = ["Alice", "Bob", "Charlie", "Diana", "Evan", "Fiona", "George", "Hannah"];
 
+// 儲存購買記錄的陣列
+const purchaseRecords = [];
 
 // 第一階段：新增課程購買記錄（優惠定價）
 // 撰寫函式 addPurchaseRecord，用於新增會員購買課程的記錄，並依購買數量套用優惠價格：
@@ -30,16 +32,62 @@ const members = ["Alice", "Bob", "Charlie", "Diana", "Evan", "Fiona", "George", 
 // addPurchaseRecord("Hannah", 50); >> 印出 console.log 文字為 新增購買記錄成功！會員 Hannah 購買 50 堂課，總金額為 55000 元。
 // addPurchaseRecord("名稱", “課程數量”); >> 印出 console.log 文字為 輸入錯誤，請輸入有效的會員名稱和課程數量。
 
+function addPurchaseRecord(name, courses) {
+  if (!name || !members.includes(name) || !Number.isInteger(courses) || courses <= 0) {
+      console.log("輸入錯誤，請輸入有效的會員名稱和課程數量。");
+      return;
+  }
+
+  let pricePerCourse;
+  if (courses <= 10) {
+      pricePerCourse = 1500;
+  } else if (courses <= 20) {
+      pricePerCourse = 1300;
+  } else {
+      pricePerCourse = 1100;
+  }
+
+  const totalAmount = courses * pricePerCourse;
+
+  purchaseRecords.push({
+      name,
+      courses,
+      pricePerCourse,
+      totalAmount
+  });
+
+  console.log(`新增購買記錄成功！會員 ${name} 購買 ${courses} 堂課，總金額為 ${totalAmount} 元。`);
+}
 
 
 // 第二階段：計算目前的總營業額
 // 新增函式 calculateTotalPrice，計算目前的總營業額為多少。
 // 印出 console.log 文字為 目前總營業額為 ${totalPrice} 元
 
+function calculateTotalPrice() {
+  const totalPrice = purchaseRecords.reduce((sum, record) => sum + record.totalAmount, 0);
+  console.log(`目前總營業額為 ${totalPrice} 元`);
+  return totalPrice;
+}
 
 
 // 第三階段：篩選出還沒有購課的會員
 // 新增函式 filterNoPurchaseMember，篩選特定條件的會員記錄。例如：未購買過課程的會員，並依序列出
 // 印出 console.log 文字為 未購買課程的會員有：.......
 
+function filterNoPurchaseMember() {
+  const purchasedMembers = purchaseRecords.map(record => record.name);
+  const noPurchaseMembers = members.filter(member => !purchasedMembers.includes(member));
+  console.log(`未購買課程的會員有：${noPurchaseMembers.join('、')}`);
+  return noPurchaseMembers;
+}
 
+
+addPurchaseRecord("Alice", 4);
+addPurchaseRecord("Bob", 12);
+addPurchaseRecord("Charlie", 25);
+addPurchaseRecord("Hannah", 30);
+addPurchaseRecord("測試", "無效數量");
+
+let totalPrice = calculateTotalPrice();
+let noPurchaseMembers = filterNoPurchaseMember();
