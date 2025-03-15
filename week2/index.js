@@ -4,36 +4,54 @@
 let a = 9;
 let b = 13;
 console.log(a > 0);
+// true
 console.log(b > a);
+// true
 console.log(a + b > 1);
+// true
+
 let c = 51;
 let d = 163;
 console.log(c == d);
+// false
 console.log(c !== d);
+// true
+
 let e = 28;
 let f = 45;
 console.log(f >= e);
+// true
 console.log(f != e);
+// true
 console.log(f == e);
+// false
 
 // ### 題目二：比較運算子 + 強制轉型
 // 請回答每個 console.log 的值為？
 let g = 8;
 let h = '8';
 console.log(g * h == 88);
+// false
 console.log(g * h == 64);
+// true
 console.log(g * h === 64);
+// true
 
 let i = '9';
 let j = '9';
 console.log(i + j == 99);
+// false
 console.log(i + j === '99');
+// true
 console.log(i + j === 99);
+// false
 
 var k = 3;
 var l = '8';
 // 請文字解釋為什麼
 console.log(k * l > 21);
+// true
+// 因為 k * l 會先將 l 轉為數字再進行運算，所以 3 * 8 = 24 > 21
 
 // ### 題目三：邏輯運算子 + if, else
 // 情境：健身房週年慶，買課程送贈品
@@ -184,12 +202,14 @@ let performanceData = {
 
 // 練習：第一位教練（可將下方程式碼註解移除，完成答題）
 if (performanceData.coaches[0].performance < 50000) {
-  performanceData.coaches[0].performance += 8000;
+  // performanceData.coaches[0].performance += 8000;
+  performanceData.coaches[0].performance += 50000 - performanceData.coaches[0].performance;
 }
 
 // 練習：第二位教練（可將下方程式碼註解移除，完成答題）
 if (performanceData.coaches[1].performance < 50000) {
-  performanceData.coaches[1].performance += 12000;
+  // performanceData.coaches[1].performance += 12000;
+  performanceData.coaches[1].performance += 50000 - performanceData.coaches[1].performance;
 }
 
 console.log(performanceData);
